@@ -60,16 +60,6 @@ set(TEST_SRC_FILES
 
 add_definitions(-D_7ZIP_ST -DBZ_STRICT_ANSI)
 
-if(WIN32)
-    if(MSVC)
-        message(STATUS "Using MSVC")
-        add_definitions(-DWIN32)
-    else()
-        message(STATUS "Using mingw")
-    endif()
-    #set(SRC_ADDITIONAL_FILES ${ZLIB_BZIP2_FILES} ${TOMCRYPT_FILES} ${TOMMATH_FILES})
-    set(LINK_LIBS wininet)
-endif()
 
 hunter_add_package(ZLIB)
 hunter_add_package(BZip2)
@@ -82,7 +72,7 @@ find_package(tomcrypt CONFIG REQUIRED)
 
 set(LINK_LIBS ZLIB::zlib BZip2::bz2 tomcrypt::tomcrypt)
 
-if(WIN32)
+if(WIN32 OR "${CMAKE_SYSTEM_NAME}" STREQUAL "MSYS")
     set(LINK_LIBS "${LINK_LIBS}" wininet)
 endif()
 

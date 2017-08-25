@@ -165,6 +165,9 @@
   #define FILE_END      SEEK_END
 
   #define _T(x)     x
+#endif  //!PLATFORM_WINDOWS
+
+#if !defined(PLATFORM_WINDOWS) || defined(__CYGWIN__)
   #define _tcslen   strlen
   #define _tcscpy   strcpy
   #define _tcscat   strcat
@@ -181,7 +184,7 @@
   #define _tcsicmp  strcasecmp
   #define _tcsnicmp strncasecmp
 
-#endif // !PLATFORM_WINDOWS
+#endif // !PLATFORM_WINDOWS || __CYGWIN__
 
 // 64-bit calls are supplied by "normal" calls on Mac
 #if defined(PLATFORM_MAC)
